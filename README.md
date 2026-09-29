@@ -21,8 +21,8 @@ This repository holds everything you need for the practical side of the course: 
 
 | Week | Topic | Guide |
 |---|---|---|
-| 2 | One node, no network | [week02.md](assignments/week02.md) |
-| 3 | Two clocks, no agreement | *published in Week 3* |
+| 2 | One node, no network | [week02.md](week02.md) |
+| 3 | Two clocks, no agreement | [week03.md](week03.md) |
 | 4 | The first connection | *published in Week 4* |
 | 5 | Three nodes and a broker | *published in Week 5* |
 | 6 | Detecting concurrency | *published in Week 6* |
