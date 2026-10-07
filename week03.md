@@ -2,7 +2,7 @@
 
 **In class:** 1 hour · **Outside class:** ~1 hour 10 min · **Covered by:** Checkpoint 1
 
-Both Picos watch the same physical event. Each records its own timestamp, with no communication of any kind between them. Afterwards you compare the two logs and measure how far apart they are.
+Both Picos watch the same physical event — a single PIR sensor, wired to both. Each records its own timestamp, with no communication of any kind between them. Afterwards you compare the two logs and measure how far apart they are.
 
 Still no network. When the disagreement appears, there is nothing to blame it on.
 
@@ -10,7 +10,7 @@ Still no network. When the disagreement appears, there is nothing to blame it on
 
 ## 1 · What you will have at the end
 
-- Both Picos logging PIR motion events to their own flash storage
+- One PIR sensor wired to both Picos, each logging its events to its own flash storage
 - Two logs of the same session, aligned against each other
 - Your measured clock drift, in **parts per million**
 - A clear separation between the part of the disagreement you could calibrate away, and the part you cannot
@@ -29,6 +29,8 @@ Still no network. When the disagreement appears, there is nothing to blame it on
 
 The run is **unattended**. Trigger an event every few minutes and do something else in between — you are not expected to watch a sensor for half an hour.
 
+**Use that time well:** flash your Pi Zero's SD card with Raspberry Pi Imager while the run goes. That is the Week 4 preparation (§14), and it needs only your laptop — the Pi Zero does not have to be powered.
+
 ---
 
 ## 3 · ⚠️ Read before wiring
@@ -37,11 +39,19 @@ The same three rules as Week 2 still apply: **GPIO is 3.3 V only**, never power 
 
 **The PIR sensor** (typically an HC-SR501) is powered from **5 V** — use `VBUS`, not `3V3`. Its output is 3.3 V logic on most modules, which makes it safe to connect directly to a GPIO. **Confirm that against your module's documentation** rather than assuming it; the cost of being wrong is a damaged pin.
 
+**Your kit has one PIR sensor. Share it between both Picos:**
+
 | PIR pin | Connect to |
 |---|---|
-| VCC | `VBUS` (5 V) |
-| OUT | A GPIO pin — verify it outputs 3.3 V |
-| GND | Common ground with the Pico |
+| VCC | Pico A's `VBUS` (5 V) |
+| OUT | A GPIO pin on **Pico A** *and* a GPIO pin on **Pico B** |
+| GND | Pico A's GND **and** Pico B's GND — all three grounds joined |
+
+**Joining the grounds is essential.** Without a common ground, Pico B has no reference for the signal and will log nothing, or nonsense.
+
+Both boards now see *exactly the same electrical signal*. That makes this experiment cleaner than using two sensors would: any difference in their timestamps is almost entirely clock drift.
+
+*If you have already done this with two different sensors instead, that is also accepted — see §11.*
 
 ---
 
@@ -49,7 +59,10 @@ The same three rules as Week 2 still apply: **GPIO is 3.3 V only**, never power 
 
 Both Picos must run at the same time, but only one micro-USB cable came in the kit.
 
-Power the second board from **any USB source** — a phone charger, a power bank, or a USB port on the Pi Zero. It needs power only; once the code is on the board, no data connection is required.
+You need two **power sources**, not two data cables:
+
+1. **Program both boards with the one cable, in turn.** Plug in A, save your code as `main.py`, unplug. Then do the same for B. Once the code is on a board it runs by itself.
+2. **For the run, the second board needs power only.** The simplest source is already in your kit: the **Pi Zero's 5 V power supply** has the same micro-USB plug as the Pico. A phone charger or power bank also works.
 
 **The consequence matters more than the inconvenience.** With no serial console attached, `print()` goes nowhere. The node has to record events into its own storage and hand them over later.
 
@@ -65,7 +78,7 @@ Read this before debugging anything.
 - **Two potentiometers** — sensitivity and hold-time. If the output stays high for many seconds after one movement, hold-time is turned up.
 - **A trigger-mode jumper.** One position re-triggers while motion continues; the other does not. They produce very different event streams.
 
-> **Set both boards' sensors identically.** Otherwise you are measuring your potentiometer settings, not your clocks. If your two boards log very different numbers of events, this is almost always why.
+With one shared sensor, both boards receive the same signal, so these settings affect both equally. Set the hold-time short, so separate movements produce separate events.
 
 ---
 
@@ -155,12 +168,11 @@ Call it from the Shell when the run finishes, or trigger it from a button.
 
 ## 10 · Task C — Run the experiment
 
-1. Load **identical** code onto both boards, with both sensors set **identically**.
-2. Power both. Wait a full minute for the PIR sensors to settle.
-3. Place the sensors so they see the same space.
-4. Trigger one clear, deliberate movement. **This is your shared origin.**
-5. Trigger further events every few minutes, for at least **20–30 minutes**. Longer is better — drift is a rate, and a short run gives a slope you cannot tell apart from noise.
-6. Call `save()` on each board, then read both logs back through the single cable, one board at a time.
+1. Load **identical** code onto both boards.
+2. Wire the shared PIR to both, with all grounds joined. Power both. Wait a full minute for the sensor to settle.
+3. Trigger one clear, deliberate movement. **This is your shared origin.**
+4. Trigger further events every few minutes, for at least **20–30 minutes**. Longer is better — drift is a rate, and a short run gives a slope you cannot tell apart from noise.
+5. Call `save()` on each board, then read both logs back through the single cable, one board at a time.
 
 ---
 
@@ -178,8 +190,10 @@ Line the two logs up by their first event and tabulate:
 
 | Component | What it is | Can you remove it? |
 |---|---|---|
-| A **steady** offset, present from the start | Detection latency differing between the two sensors and their wiring | **Yes** — it can be calibrated away |
+| A **steady** offset, present from the start | Any difference in how quickly each board responds to the signal | **Yes** — it can be calibrated away |
 | A **growing** offset, accumulating over the session | Genuine clock drift | **No** — only re-synchronised, repeatedly, forever |
+
+With one shared sensor the steady offset should be very small, so the difference you see is almost all drift. **If you used two different sensors**, expect a larger steady offset — each sensor reacts at a different speed — but the slope is still your drift, and that is what you report.
 
 The slope of the growing component *is* the relative drift between your two boards. Convert it to **ppm**: a drift of *d* milliseconds over *T* seconds is (*d* / 1000) / *T* × 10⁶ ppm.
 
@@ -211,10 +225,11 @@ A raw millisecond difference with no time base is not a measurement. State how l
 | Constant triggering | Still warming up, or sensitivity turned up too high |
 | One movement logs many events | Trigger jumper set to repeat, or hold-time too short |
 | One movement logs nothing on one board | Sensors aimed differently, or hold-time still counting from the last event |
-| Boards log different numbers of events | Expected. Say so, and explain which events you could pair |
+| Boards log different numbers of events | With a shared PIR this should not happen — check the joined grounds and Pico B's wire. With two different sensors it is expected |
+| Pico B logs nothing at all | Grounds not joined — Pico B has no reference for the signal |
 | `log.txt` is empty | `save()` never called, or the board was unplugged first |
 
-On the fourth row: **unpaired events are data, not failure.** Pair events by proximity in offset, and say explicitly in your report which ones you could not pair.
+If you used two different sensors: **unpaired events are data, not failure.** Pair events by proximity in offset, and say explicitly in your report which ones you could not pair.
 
 ---
 
