@@ -24,7 +24,7 @@ This repository holds everything you need for the practical side of the course: 
 | 2 | One node, no network | [week02.md](week02.md) |
 | 3 | Two clocks, no agreement | [week03.md](week03.md) |
 | 4 | The first connection | [week04.md](week04.md)  |
-| 5 | Three nodes and a broker | *published in Week 5* |
+| 5 | Three nodes and a broker | [week05.md](week05.md) |
 | 6 | Detecting concurrency | *published in Week 6* |
 | 8 | Building a failure detector | *published in Week 8* |
 | 9 | Elections | *published in Week 9* |
