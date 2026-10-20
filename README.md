@@ -25,7 +25,7 @@ This repository holds everything you need for the practical side of the course: 
 | 3 | Two clocks, no agreement | [week03.md](week03.md) |
 | 4 | The first connection | [week04.md](week04.md)  |
 | 5 | Three nodes and a broker | [week05.md](week05.md) |
-| 6 | Detecting concurrency | *published in Week 6* |
+| 6 | Detecting concurrency | [week06.md](week06.md) |
 | 8 | Building a failure detector | *published in Week 8* |
 | 9 | Elections | *published in Week 9* |
 | 10 | Aligning the clocks | *published in Week 10* |
