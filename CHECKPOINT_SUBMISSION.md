@@ -21,9 +21,9 @@ Nothing else is submitted through iClass. The final project is submitted separat
 
 | Checkpoint | Week | Covers | Deadline |
 |---|---|---|---|
-| **CP1** | 7 | Weeks 2–6 | 23:59, Sunday of Week 7 |
-| **CP2** | 11 | Weeks 8–10 | 23:59, Sunday of Week 11 |
-| **CP3** | 13 | Weeks 11–13 | 23:59, Sunday of Week 13 |
+| **CP1** | 7 | Weeks 2–6 | 23:59, Tuesday 3 November |
+| **CP2** | 11 | Weeks 8–10 | 23:59, Tuesday 1 December |
+| **CP3** | 13 | Weeks 11–13 | 23:59, Tuesday 15 December |
 
 The iClass submission closes at the same moment as the checkpoint. A late iClass upload is a late checkpoint.
 

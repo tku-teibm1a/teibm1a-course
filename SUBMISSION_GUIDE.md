@@ -7,7 +7,7 @@ Department of Computer Science and Engineering, Tamkang University
 
 ## 1. How submission works
 
-You work in a **team of two** and share one hardware cluster and **one GitHub repository** for the entire semester. There is no upload, no email, and no separate hand-in for individual weeks.
+You work in a **team of two** and share one hardware cluster and **one GitHub repository** for the entire semester. Individual weeks are never uploaded or emailed — you simply push to GitHub. The only formal submissions are at the three checkpoints, to iClass, described in the [Checkpoint Submission guide](CHECKPOINT_SUBMISSION.md).
 
 Everything you produce goes into your team repository as you go. Your work is reviewed at **four checkpoints** across the semester.
 
@@ -49,14 +49,14 @@ teibm1a-team<NN>/
 
 Two rules that matter:
 
-- **One folder per week.** Never edit a previous week's folder to fix something. If Week 3 revealed that your Week 2 code was wrong, say so in the Week 3 report and move on. The history is part of what is being assessed.
+- **One folder per week.** Never edit a previous week's folder to fix something. If Week 3 revealed that your Week 2 code was wrong, say so in the Week 3 report and move on. The history is part of what is being assessed. *(One exception: before Checkpoint 1, add the new sections 5 and 6 to your Week 2–5 reports — see the [Report Guide](REPORT_GUIDE.md) §5.)*
 - **`model-spec.md` is the exception.** It is a single living document that you revise in place. Its git history shows how your understanding of your own system changed.
 
 ---
 
 ## 4. The weekly report
 
-Every `report.md` uses these five sections, in this order, every week. Do not add sections, and do not reorder them.
+Every `report.md` uses these six sections, in this order, every week. Do not add sections, and do not reorder them. Each week's report stands on its own.
 
 ```markdown
 # Week N — <topic>
@@ -75,11 +75,18 @@ The reasoning question set in that week's practical slides. Answer it directly.
 What you changed in model-spec.md this week, and why. One or two lines.
 Write "no change" if nothing changed — but that should be rare.
 
-## 5. Who did what
-One line per team member.
+## 5. Problems and reflection
+What went wrong, how you found the cause, what you did about it, and
+what it taught you. Hardware problems count.
+
+## 6. Who did what, and how we used AI
+One line per team member. Then one line per AI tool: what you used it
+for, and how you checked the result. Write "AI: none" if you used none.
 ```
 
-Sections 2 and 3 carry most of the marks. Section 1 should be short.
+Sections 2 and 3 are the heart of the report. Section 1 should be short.
+
+**The [Report Guide](REPORT_GUIDE.md) explains each section in detail**, with examples and a checklist of what every week must contain.
 
 ---
 
@@ -99,6 +106,8 @@ Real measurements are messy. A log with plausible jitter and the occasional anom
 
 ## 6. Checkpoints
 
+> At CP1, CP2 and CP3 you tag your repository and upload one PDF to **iClass**, where marks are recorded. The procedure is in the **[Checkpoint Submission guide](CHECKPOINT_SUBMISSION.md)**.
+
 Your repository is reviewed four times. Between checkpoints you are expected to keep working and committing normally.
 
 | Checkpoint | Week | Covers | Weight |
@@ -111,7 +120,7 @@ Your repository is reviewed four times. Between checkpoints you are expected to 
 
 The Week 4 health check exists to catch teams who are stuck or who have not started. It costs you nothing and may save you a great deal.
 
-Each checkpoint closes at **23:59 on the Sunday** of that week. Commits after that point are visible but do not count toward that checkpoint.
+Each checkpoint closes at **23:59 on the Tuesday** after that week — the day before the next class. Commits after that point are visible but do not count toward that checkpoint.
 
 ---
 
@@ -149,7 +158,9 @@ Your commit history is visible, timestamped, and attributed. Two teams submittin
 
 You share one cluster, so you will often work side by side. That is expected and encouraged. What is not acceptable is a division where one member owns the hardware and the other owns the writing.
 
-**Either member must be able to explain and operate any part of your system.** You may be asked to do so at any point during a practical session. Work may be divided; understanding may not.
+**Either member must be able to explain and operate any part of your system.** You may be asked to do so at any checkpoint or in class. Work may be divided; understanding may not.
+
+The hands-on work is done outside class, where you have space and power — see [Doing the Labs Outside Class](LAB_SETUP.md).
 
 ---
 
@@ -159,4 +170,4 @@ Being stuck is normal and is not penalised. Hiding it is costly.
 
 If something does not work, commit what you have, and write in that week's report what you tried, what you observed, and where your understanding runs out. A clear account of an unresolved problem scores far better than silence, and it is often worth more marks than a working system with no explanation.
 
-The third hour of each session is supervised working time. Use it to ask.
+Bring your questions to class. You do not need the hardware — bring the exact error message, the log, or the commit that fails.
