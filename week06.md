@@ -147,8 +147,12 @@ c.set_callback(on_update)
 c.connect()
 c.subscribe(TOPIC)
 
+last_ping = time.ticks_ms()
 while True:
     c.check_msg()                     # deliver any waiting message
+    if time.ticks_diff(time.ticks_ms(), last_ping) > 10000:
+        c.ping()                      # keep the broker connection alive
+        last_ping = time.ticks_ms()
     if rp2.bootsel_button():
         threshold += 1
         msg = make_update(threshold)
@@ -158,6 +162,8 @@ while True:
             time.sleep_ms(20)
     time.sleep_ms(20)
 ```
+
+**Why the `ping()`:** `umqtt.simple` sends nothing on its own. If a Pico publishes nothing for 1.5 × `keepalive` (45 s here), the broker decides it is dead and closes the connection — and the Pico silently stops receiving. Week 8 is about exactly this rule.
 
 **Why the echo check:** you are subscribed to the topic you publish on, so the broker sends your own messages back to you. Without the check, your clock advances twice for one event.
 
@@ -332,14 +338,17 @@ Everything goes in `week06/` of your team repository — see the [Submission Gui
 | One press advances the clock twice | Not filtering your own echoed message |
 | Classifications reverse partway through | A Pico was reset or reprogrammed — see §9 |
 | One press sends several updates | The release-wait loop is missing |
+| A Pico stops receiving after about 45 s of no button presses | No `ping()` in the loop — the broker closed the idle connection |
 
 ---
 
 ## 12 · Next week is Checkpoint 1
 
-There is **no lab next week**. Week 7 is Checkpoint 1, covering Weeks 2 to 6. By **23:59 on Sunday of Week 7**:
+There is **no lab next week**. Week 7 is Checkpoint 1, covering Weeks 2 to 6. By **23:59 on Tuesday 3 November** — the day before the Week 8 class:
 
 1. Tag your repository `cp1` and push the tag.
 2. Upload one PDF — cover page, every `report.md` for Weeks 2–6, and `model-spec.md` — to iClass.
+
+You may also write one **integrated report**, `cp1-report.md`, that brings the five weeks together — for example with the help of an AI tool. It is optional; see the [Report Guide](../REPORT_GUIDE.md) §9.
 
 The full procedure is in [CHECKPOINT_SUBMISSION.md](../CHECKPOINT_SUBMISSION.md). Budget fifteen minutes for the PDF, and check on GitHub, not on your laptop, that everything is pushed.
