@@ -29,7 +29,7 @@ This repository holds everything you need for the practical side of the course: 
 | 5 | Three nodes and a broker | [week05.md](assignments/week05.md) |
 | 6 | Detecting concurrency | [week06.md](assignments/week06.md) |
 | 8 | Building a failure detector | [week08.md](assignments/week08.md) |
-| 9 | Elections | *published in Week 9* |
+| 9 | Elections | [week09.md](assignments/week09.md) |
 | 10 | Aligning the clocks | *published in Week 10* |
 | 11–13 | Edge AI and resilience | *published later* |
 
