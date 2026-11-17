@@ -30,7 +30,7 @@ This repository holds everything you need for the practical side of the course: 
 | 6 | Detecting concurrency | [week06.md](assignments/week06.md) |
 | 8 | Building a failure detector | [week08.md](assignments/week08.md) |
 | 9 | Elections | [week09.md](assignments/week09.md) |
-| 10 | Aligning the clocks | *published in Week 10* |
+| 10 | Aligning the clocks | [week10.md](assignments/week10.md) |
 | 11–13 | Edge AI and resilience | *published later* |
 
 Week 7 is Checkpoint 1 — a review of Weeks 2 to 6, with no new lab.
